@@ -1,4 +1,4 @@
-package com.xinzhe.demo.kafka.totorial1;
+package com.xinzhe.demo.kafka.tutorial1;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

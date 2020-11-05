@@ -1,4 +1,4 @@
-package com.xinzhe.demo.kafka.totorial1;
+package com.xinzhe.demo.kafka.tutorial1;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -10,15 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
-/**
- * same key going to the same partition
- */
-public class ProducerDemoKeys {
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Logger log = LoggerFactory.getLogger(ProducerDemoKeys.class);
+public class ProducerDemoCallBack {
+    public static void main(String[] args) {
+        Logger log = LoggerFactory.getLogger(ProducerDemoCallBack.class);
         // create Producer properties
         Properties properties = new Properties();
 
@@ -29,16 +24,9 @@ public class ProducerDemoKeys {
         //create the producer
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
         //create producer record
-
-
-        for (int i = 10; i < 20; ++i) {
-            String topic = "first_topic";
-            String value = "hello world" + i;
-            String key = "id_" + i;
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
+        for (int i = 0; i < 10; ++i) {
+            ProducerRecord<String, String> record = new ProducerRecord<>("first_topic", "hello world" + i);
             //send data
-
-            log.info("Key: " +  key);
             producer.send(record, new Callback() {
                 @Override
                 public void onCompletion(RecordMetadata recordMetadata, Exception e) {
@@ -52,7 +40,7 @@ public class ProducerDemoKeys {
                         log.error("Error while producing", e);
                     }
                 }
-            }).get();
+            });
         }
 
         //flush data and close
