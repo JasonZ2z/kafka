@@ -1,4 +1,4 @@
-package com.xinzhe.demo.kafka.tutorial2;
+package tutorial2;
 
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
@@ -31,7 +31,7 @@ public class TwitterProducer {
     String consumerSecret = "wW9bP5IM1MMOqgKn3axlaErJFvs0pc31XlWX1Jw16MHH3WRqz4";
     String token = "1323874513767919616-MXGBXkp0Yabrq6OJ7gteSLL8HJ3hac";
     String secret = "ITlKtdafIjjILsWBp91qlRSCe9GvAUaSo2TFkzKzOTmGr";
-    List<String> terms = Lists.newArrayList("kafka");
+    List<String> terms = Lists.newArrayList("bitcoin", "usa");
 
     public TwitterProducer() {}
 
@@ -89,6 +89,11 @@ public class TwitterProducer {
         properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
         properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
         properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");
+
+        //high throughput producer(at the expense of a bit of latency and cpu usage)
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024));
 
 
         return new KafkaProducer<>(properties);
