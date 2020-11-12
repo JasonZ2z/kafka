@@ -1,4 +1,4 @@
-package com.xinzhe.demo.kafka.tutorial1;
+package tutorial1;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
